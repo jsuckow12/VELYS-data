@@ -9,6 +9,7 @@ A mobile-optimized Progressive Web App (PWA) for capturing clinical research dat
 - **Camera Integration**: Capture photos directly within the app
 - **Auto-Save**: Automatically saves form data to prevent data loss
 - **Data Export**: Export collected data as CSV files
+- **BMI Calculator**: Automatic BMI calculation from height and weight
 - **PWA Support**: Can be installed as a native app on mobile devices
 
 ## How to Use
@@ -23,12 +24,11 @@ A mobile-optimized Progressive Web App (PWA) for capturing clinical research dat
 
 ### Data Entry:
 
-1. **Case Information**: Enter V_ID, date, and case number
-2. **X-Ray Input**: Enter LDFA, MPTA, and HKA measurements
-3. **Clinical Data**: Add diagnosis, symptoms, medications, and cartilage assessment
-4. **Planning Screen**: Enter femoral/tibial measurements
-5. **Notes**: Include additional observations
-6. **Save**: Tap "Save Data" to store the information
+1. **Patient Information**: Enter patient ID, date, age, and gender
+2. **Measurements**: Enter height and weight (BMI calculates automatically)
+3. **Clinical Data**: Add diagnosis, symptoms, and medications
+4. **Notes**: Include additional observations
+5. **Save**: Tap "Save Data" to store the information
 
 ### Camera Features:
 
@@ -51,6 +51,19 @@ A mobile-optimized Progressive Web App (PWA) for capturing clinical research dat
 - **Touch-Friendly**: Large touch targets for mobile use
 - **Dark Mode Support**: Automatically adapts to system theme
 
+## File Structure
+
+```
+Athey_algo/
+├── index.html          # Main app interface
+├── styles.css          # Mobile-optimized styling
+├── app.js             # App functionality
+├── manifest.json      # PWA configuration
+├── sw.js             # Service worker for offline support
+├── icons/            # App icons (placeholder)
+└── README.md         # This file
+```
+
 ## Browser Compatibility
 
 - Safari (iOS 11.3+)
@@ -64,3 +77,31 @@ A mobile-optimized Progressive Web App (PWA) for capturing clinical research dat
 - No data is transmitted to external servers
 - Camera access requires user permission
 - Data can be exported and backed up manually
+
+## Installation
+
+1. Host the files on a web server (HTTPS required for PWA features)
+2. Access via mobile browser
+3. Add to home screen for app-like experience
+
+## Development
+
+To run locally for development:
+
+```bash
+# Using Python's built-in server
+python -m http.server 8000
+
+# Using Node.js
+npx serve .
+
+# Then access at http://localhost:8000
+```
+
+## Customization
+
+The app can be easily customized by modifying:
+- `styles.css` for visual changes
+- `app.js` for functionality
+- `index.html` for form fields
+- `manifest.json` for PWA settings 
