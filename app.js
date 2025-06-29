@@ -41,7 +41,13 @@ class DataCaptureApp {
         formElements.forEach(element => {
             element.addEventListener('input', () => {
                 this.autoSave();
+                this.updateCalculations();
             });
+        });
+        // Also update calculations on checkbox click
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', () => this.updateCalculations());
         });
     }
 
@@ -59,23 +65,21 @@ class DataCaptureApp {
             ldfa: document.getElementById('ldfa').value,
             mpta: document.getElementById('mpta').value,
             hka: document.getElementById('hka').value,
-            diagnosis: document.getElementById('diagnosis').value,
-            symptoms: document.getElementById('symptoms').value,
-            medications: document.getElementById('medications').value,
-            mdf: document.getElementById('mdf').checked ? '2mm' : '0mm',
-            ldf: document.getElementById('ldf').checked ? '2mm' : '0mm',
-            mpf: document.getElementById('mpf').checked ? '2mm' : '0mm',
-            lpf: document.getElementById('lpf').checked ? '2mm' : '0mm',
-            mpt: document.getElementById('mpt').checked ? '2mm' : '0mm',
-            lpt: document.getElementById('lpt').checked ? '2mm' : '0mm',
+            dm: document.getElementById('dm').checked ? 2 : 0,
+            dl: document.getElementById('dl').checked ? 2 : 0,
+            pm: document.getElementById('pm').checked ? 2 : 0,
+            pl: document.getElementById('pl').checked ? 2 : 0,
+            tm: document.getElementById('tm').checked ? 2 : 0,
+            tl: document.getElementById('tl').checked ? 2 : 0,
             femoralVarVal: document.getElementById('femoralVarVal').value,
-            mdfPlanning: document.getElementById('mdfPlanning').value,
-            ldfPlanning: document.getElementById('ldfPlanning').value,
-            mpfPlanning: document.getElementById('mpfPlanning').value,
-            lpfPlanning: document.getElementById('lpfPlanning').value,
+            dmPlanning: document.getElementById('dmPlanning').value,
+            dlPlanning: document.getElementById('dlPlanning').value,
+            pmPlanning: document.getElementById('pmPlanning').value,
+            plPlanning: document.getElementById('plPlanning').value,
+            femoralSize: document.getElementById('femoralSize').value,
             tibialVarVal: document.getElementById('tibialVarVal').value,
-            mptPlanning: document.getElementById('mptPlanning').value,
-            lptPlanning: document.getElementById('lptPlanning').value,
+            tmPlanning: document.getElementById('tmPlanning').value,
+            tlPlanning: document.getElementById('tlPlanning').value,
             notes: document.getElementById('notes').value,
             timestamp: new Date().toISOString()
         };
@@ -132,12 +136,6 @@ class DataCaptureApp {
             } else if (element.tagName === 'TEXTAREA') {
                 element.value = '';
             }
-        });
-        
-        // Clear checkboxes
-        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        checkboxes.forEach(checkbox => {
-            checkbox.checked = false;
         });
     }
 
@@ -290,11 +288,7 @@ class DataCaptureApp {
         Object.keys(data).forEach(key => {
             const element = document.getElementById(key);
             if (element && key !== 'timestamp') {
-                if (element.type === 'checkbox') {
-                    element.checked = data[key] === '2mm';
-                } else {
-                    element.value = data[key];
-                }
+                element.value = data[key];
             }
         });
     }
@@ -317,11 +311,61 @@ class DataCaptureApp {
             toast.classList.remove('show');
         }, 3000);
     }
+
+    updateCalculations() {
+        const data = this.getFormData();
+        // Cartilage values (for display if needed)
+        // Calculate DF_d = DM - DL
+        const DM = parseFloat(data.dmPlanning) || 0;
+        const DL = parseFloat(data.dlPlanning) || 0;
+        const DF_d = DM - DL;
+        // Calculate DT_d = TL - TM
+        const TL = parseFloat(data.tlPlanning) || 0;
+        const TM = parseFloat(data.tmPlanning) || 0;
+        const DT_d = TL - TM;
+        // Femoral Width lookup
+        const femoralWidthTable = {
+            1: 38.06, 2: 39.92, 3: 41.78, 4: 44.33, 5: 45.4,
+            6: 46.49, 7: 47.6, 8: 48.75, 9: 49.92, 10: 51.11
+        };
+        const FW = femoralWidthTable[data.femoralSize] || 0;
+        // LDFA_v = atan2(DF_d,FW)*(180/pi) - Femoral Var/Val
+        let LDFA_v = '';
+        if (FW !== 0) {
+            LDFA_v = (Math.atan2(DF_d, FW) * (180 / Math.PI)) - (parseFloat(data.femoralVarVal) || 0);
+            LDFA_v = LDFA_v.toFixed(2);
+        }
+        // MPTA_v = 90 - degrees(atan(DT_d/FW)) + Tibial Var/Val
+        let MPTA_v = '';
+        if (FW !== 0) {
+            MPTA_v = 90 - (Math.atan(DT_d / FW) * (180 / Math.PI)) + (parseFloat(data.tibialVarVal) || 0);
+            MPTA_v = MPTA_v.toFixed(2);
+        }
+        // JLO_v = MPTA_v + LDFA_v
+        let JLO_v = '';
+        if (MPTA_v !== '' && LDFA_v !== '') {
+            JLO_v = (parseFloat(MPTA_v) + parseFloat(LDFA_v)).toFixed(2);
+        }
+        // aHKA_v = MPTA_v - LDFA_v
+        let aHKA_v = '';
+        if (MPTA_v !== '' && LDFA_v !== '') {
+            aHKA_v = (parseFloat(MPTA_v) - parseFloat(LDFA_v)).toFixed(2);
+        }
+        // Output
+        document.getElementById('dfdOutput').textContent = isNaN(DF_d) ? '' : DF_d;
+        document.getElementById('dtdOutput').textContent = isNaN(DT_d) ? '' : DT_d;
+        document.getElementById('fwOutput').textContent = FW ? FW : '';
+        document.getElementById('ldfavOutput').textContent = LDFA_v;
+        document.getElementById('mptavOutput').textContent = MPTA_v;
+        document.getElementById('jlovOutput').textContent = JLO_v;
+        document.getElementById('ahkavOutput').textContent = aHKA_v;
+    }
 }
 
 // Initialize app when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    new DataCaptureApp();
+    const app = new DataCaptureApp();
+    app.updateCalculations();
 });
 
 // Service Worker for PWA functionality
@@ -335,4 +379,4 @@ if ('serviceWorker' in navigator) {
                 console.log('SW registration failed: ', registrationError);
             });
     });
-}
+} 
