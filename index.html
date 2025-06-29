@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Data Capture">
+    <meta name="theme-color" content="#4F46E5">
+    <title>Data Capture Tool</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1>Data Capture Tool</h1>
+            <div class="header-actions">
+                <button id="exportBtn" class="btn btn-secondary">Export</button>
+                <button id="clearBtn" class="btn btn-danger">Clear</button>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="form-section">
+                <h2>Case Information</h2>
+                <div class="form-group">
+                    <label for="patientId">V_ID</label>
+                    <input type="text" id="patientId" placeholder="Enter V_ID">
+                </div>
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    <input type="date" id="date">
+                </div>
+                <div class="form-group">
+                    <label for="caseOfDay">Case of the day</label>
+                    <input type="number" id="caseOfDay" placeholder="Enter case number">
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2>X-Ray Input</h2>
+                <div class="form-group">
+                    <label for="ldfa">LDFA</label>
+                    <input type="number" id="ldfa" step="0.1" placeholder="Enter LDFA">
+                </div>
+                <div class="form-group">
+                    <label for="mpta">MPTA</label>
+                    <input type="number" id="mpta" step="0.1" placeholder="Enter MPTA">
+                </div>
+                <div class="form-group">
+                    <label for="hka">HKA</label>
+                    <input type="number" id="hka" step="0.1" placeholder="Enter HKA">
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2>Clinical Data</h2>
+                <div class="form-group">
+                    <label for="diagnosis">Diagnosis</label>
+                    <textarea id="diagnosis" placeholder="Enter diagnosis"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="symptoms">Symptoms</label>
+                    <textarea id="symptoms" placeholder="Enter symptoms"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="medications">Medications</label>
+                    <textarea id="medications" placeholder="Enter medications"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Intra-operative Cartilage Assessment</label>
+                    <div class="checkbox-grid">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="mdf" name="cartilage">
+                            <label for="mdf">MDF (Medial Distal Femur)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="ldf" name="cartilage">
+                            <label for="ldf">LDF (Lateral Distal Femur)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="mpf" name="cartilage">
+                            <label for="mpf">MPF (Medial Proximal Femur)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="lpf" name="cartilage">
+                            <label for="lpf">LPF (Lateral Proximal Femur)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="mpt" name="cartilage">
+                            <label for="mpt">MPT (Medial Proximal Tibia)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="lpt" name="cartilage">
+                            <label for="lpt">LPT (Lateral Proximal Tibia)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2>Planning Screen</h2>
+                <div class="form-group">
+                    <label for="femoralVarVal">Femoral Var/Val</label>
+                    <input type="number" id="femoralVarVal" step="0.1" placeholder="Enter femoral varus/valgus">
+                </div>
+                <div class="form-group">
+                    <label for="mdfPlanning">MDF (mm)</label>
+                    <input type="number" id="mdfPlanning" step="0.1" placeholder="Enter MDF in mm">
+                </div>
+                <div class="form-group">
+                    <label for="ldfPlanning">LDF (mm)</label>
+                    <input type="number" id="ldfPlanning" step="0.1" placeholder="Enter LDF in mm">
+                </div>
+                <div class="form-group">
+                    <label for="mpfPlanning">MPF (mm)</label>
+                    <input type="number" id="mpfPlanning" step="0.1" placeholder="Enter MPF in mm">
+                </div>
+                <div class="form-group">
+                    <label for="lpfPlanning">LPF (mm)</label>
+                    <input type="number" id="lpfPlanning" step="0.1" placeholder="Enter LPF in mm">
+                </div>
+                <div class="form-group">
+                    <label for="tibialVarVal">Tibial Var/Val</label>
+                    <input type="number" id="tibialVarVal" step="0.1" placeholder="Enter tibial varus/valgus">
+                </div>
+                <div class="form-group">
+                    <label for="mptPlanning">MPT (mm)</label>
+                    <input type="number" id="mptPlanning" step="0.1" placeholder="Enter MPT in mm">
+                </div>
+                <div class="form-group">
+                    <label for="lptPlanning">LPT (mm)</label>
+                    <input type="number" id="lptPlanning" step="0.1" placeholder="Enter LPT in mm">
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2>Notes</h2>
+                <div class="form-group">
+                    <label for="notes">Additional Notes</label>
+                    <textarea id="notes" placeholder="Enter additional notes"></textarea>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button id="saveBtn" class="btn btn-primary">Save Data</button>
+                <button id="cameraBtn" class="btn btn-secondary">📷 Camera</button>
+            </div>
+        </main>
+
+        <div id="cameraModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Camera Capture</h3>
+                    <button class="close-btn" id="closeCamera">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <video id="camera" autoplay playsinline></video>
+                    <canvas id="canvas" style="display: none;"></canvas>
+                    <div class="camera-controls">
+                        <button id="captureBtn" class="btn btn-primary">Capture Photo</button>
+                        <button id="switchCameraBtn" class="btn btn-secondary">Switch Camera</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="toast" class="toast"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
