@@ -58,82 +58,123 @@
             <div class="form-section">
                 <h2>Clinical Data</h2>
                 <div class="form-group">
-                    <label for="diagnosis">Diagnosis</label>
-                    <textarea id="diagnosis" placeholder="Enter diagnosis"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="symptoms">Symptoms</label>
-                    <textarea id="symptoms" placeholder="Enter symptoms"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="medications">Medications</label>
-                    <textarea id="medications" placeholder="Enter medications"></textarea>
-                </div>
-                
-                <div class="form-group">
                     <label>Intra-operative Cartilage Assessment</label>
                     <div class="checkbox-grid">
                         <div class="checkbox-item">
-                            <input type="checkbox" id="mdf" name="cartilage">
-                            <label for="mdf">MDF (Medial Distal Femur)</label>
+                            <input type="checkbox" id="dm" name="cartilage">
+                            <label for="dm">DM (Distal Medial)</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox" id="ldf" name="cartilage">
-                            <label for="ldf">LDF (Lateral Distal Femur)</label>
+                            <input type="checkbox" id="dl" name="cartilage">
+                            <label for="dl">DL (Distal Lateral)</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox" id="mpf" name="cartilage">
-                            <label for="mpf">MPF (Medial Proximal Femur)</label>
+                            <input type="checkbox" id="pm" name="cartilage">
+                            <label for="pm">PM (Posterior Medial)</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox" id="lpf" name="cartilage">
-                            <label for="lpf">LPF (Lateral Proximal Femur)</label>
+                            <input type="checkbox" id="pl" name="cartilage">
+                            <label for="pl">PL (Posterior Lateral)</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox" id="mpt" name="cartilage">
-                            <label for="mpt">MPT (Medial Proximal Tibia)</label>
+                            <input type="checkbox" id="tm" name="cartilage">
+                            <label for="tm">TM (Tibial Medial)</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox" id="lpt" name="cartilage">
-                            <label for="lpt">LPT (Lateral Proximal Tibia)</label>
+                            <input type="checkbox" id="tl" name="cartilage">
+                            <label for="tl">TL (Tibial Lateral)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section planning-section">
+                <h2>Planning Screen</h2>
+                <div class="planning-columns">
+                    <div class="planning-column">
+                        <div class="form-group">
+                            <label for="femoralVarVal">Femoral Var/Val <span class="script-note">(negative denotes varus)</span></label>
+                            <input type="number" id="femoralVarVal" step="0.1" placeholder="Enter femoral varus/valgus">
+                        </div>
+                        <div class="form-group">
+                            <label for="dmPlanning">DM (mm)</label>
+                            <input type="number" id="dmPlanning" step="0.1" placeholder="Enter DM in mm">
+                        </div>
+                        <div class="form-group">
+                            <label for="dlPlanning">DL (mm)</label>
+                            <input type="number" id="dlPlanning" step="0.1" placeholder="Enter DL in mm">
+                        </div>
+                        <div class="form-group">
+                            <label for="pmPlanning">PM (mm)</label>
+                            <input type="number" id="pmPlanning" step="0.1" placeholder="Enter PM in mm">
+                        </div>
+                        <div class="form-group">
+                            <label for="plPlanning">PL (mm)</label>
+                            <input type="number" id="plPlanning" step="0.1" placeholder="Enter PL in mm">
+                        </div>
+                        <div class="form-group">
+                            <label for="femoralSize">Femoral Size</label>
+                            <select id="femoralSize">
+                                <option value="">Select size</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="planning-column">
+                        <div class="form-group">
+                            <label for="tibialVarVal">Tibial Var/Val <span class="script-note">(negative denotes varus)</span></label>
+                            <input type="number" id="tibialVarVal" step="0.1" placeholder="Enter tibial varus/valgus">
+                        </div>
+                        <div class="form-group">
+                            <label for="tmPlanning">TM (mm)</label>
+                            <input type="number" id="tmPlanning" step="0.1" placeholder="Enter TM in mm">
+                        </div>
+                        <div class="form-group">
+                            <label for="tlPlanning">TL (mm)</label>
+                            <input type="number" id="tlPlanning" step="0.1" placeholder="Enter TL in mm">
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="form-section">
-                <h2>Planning Screen</h2>
+                <h2>Calculations</h2>
                 <div class="form-group">
-                    <label for="femoralVarVal">Femoral Var/Val</label>
-                    <input type="number" id="femoralVarVal" step="0.1" placeholder="Enter femoral varus/valgus">
+                    <label>DF_d (Distal Femur Delta):</label>
+                    <span id="dfdOutput"></span>
                 </div>
                 <div class="form-group">
-                    <label for="mdfPlanning">MDF (mm)</label>
-                    <input type="number" id="mdfPlanning" step="0.1" placeholder="Enter MDF in mm">
+                    <label>DT_d (Proximal Tibia Delta):</label>
+                    <span id="dtdOutput"></span>
                 </div>
                 <div class="form-group">
-                    <label for="ldfPlanning">LDF (mm)</label>
-                    <input type="number" id="ldfPlanning" step="0.1" placeholder="Enter LDF in mm">
+                    <label>FW (Femoral Width):</label>
+                    <span id="fwOutput"></span>
                 </div>
                 <div class="form-group">
-                    <label for="mpfPlanning">MPF (mm)</label>
-                    <input type="number" id="mpfPlanning" step="0.1" placeholder="Enter MPF in mm">
+                    <label>LDFA_v:</label>
+                    <span id="ldfavOutput"></span>
                 </div>
                 <div class="form-group">
-                    <label for="lpfPlanning">LPF (mm)</label>
-                    <input type="number" id="lpfPlanning" step="0.1" placeholder="Enter LPF in mm">
+                    <label>MPTA_v:</label>
+                    <span id="mptavOutput"></span>
                 </div>
                 <div class="form-group">
-                    <label for="tibialVarVal">Tibial Var/Val</label>
-                    <input type="number" id="tibialVarVal" step="0.1" placeholder="Enter tibial varus/valgus">
+                    <label>JLO_v:</label>
+                    <span id="jlovOutput"></span>
                 </div>
                 <div class="form-group">
-                    <label for="mptPlanning">MPT (mm)</label>
-                    <input type="number" id="mptPlanning" step="0.1" placeholder="Enter MPT in mm">
-                </div>
-                <div class="form-group">
-                    <label for="lptPlanning">LPT (mm)</label>
-                    <input type="number" id="lptPlanning" step="0.1" placeholder="Enter LPT in mm">
+                    <label>aHKA_v:</label>
+                    <span id="ahkavOutput"></span>
                 </div>
             </div>
 
@@ -173,4 +214,4 @@
 
     <script src="app.js"></script>
 </body>
-</html>
+</html> 
