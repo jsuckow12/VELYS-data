@@ -72,14 +72,14 @@ class DataCaptureApp {
             tm: document.getElementById('tm').checked ? 2 : 0,
             tl: document.getElementById('tl').checked ? 2 : 0,
             femoralVarVal: document.getElementById('femoralVarVal').value,
-            dmPlanning: document.getElementById('dmPlanning').value,
-            dlPlanning: document.getElementById('dlPlanning').value,
-            pmPlanning: document.getElementById('pmPlanning').value,
-            plPlanning: document.getElementById('plPlanning').value,
+            dfmPlanning: document.getElementById('dfmPlanning').value,
+            dflPlanning: document.getElementById('dflPlanning').value,
+            pfmPlanning: document.getElementById('pfmPlanning').value,
+            pflPlanning: document.getElementById('pflPlanning').value,
             femoralSize: document.getElementById('femoralSize').value,
             tibialVarVal: document.getElementById('tibialVarVal').value,
-            tmPlanning: document.getElementById('tmPlanning').value,
-            tlPlanning: document.getElementById('tlPlanning').value,
+            ptmPlanning: document.getElementById('ptmPlanning').value,
+            ptlPlanning: document.getElementById('ptlPlanning').value,
             notes: document.getElementById('notes').value,
             timestamp: new Date().toISOString()
         };
@@ -314,15 +314,14 @@ class DataCaptureApp {
 
     updateCalculations() {
         const data = this.getFormData();
-        // Cartilage values (for display if needed)
-        // Calculate DF_d = DM - DL
-        const DM = parseFloat(data.dmPlanning) || 0;
-        const DL = parseFloat(data.dlPlanning) || 0;
-        const DF_d = DM - DL;
-        // Calculate DT_d = TL - TM
-        const TL = parseFloat(data.tlPlanning) || 0;
-        const TM = parseFloat(data.tmPlanning) || 0;
-        const DT_d = TL - TM;
+        // Calculate DF_d = DFM - DFL
+        const DFM = parseFloat(data.dfmPlanning) || 0;
+        const DFL = parseFloat(data.dflPlanning) || 0;
+        const DF_d = DFM - DFL;
+        // Calculate DT_d = PTL - PTM
+        const PTL = parseFloat(data.ptlPlanning) || 0;
+        const PTM = parseFloat(data.ptmPlanning) || 0;
+        const DT_d = PTL - PTM;
         // Femoral Width lookup
         const femoralWidthTable = {
             1: 38.06, 2: 39.92, 3: 41.78, 4: 44.33, 5: 45.4,
